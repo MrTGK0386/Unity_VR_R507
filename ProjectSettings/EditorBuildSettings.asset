@@ -9,5 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: f1eedd3e0f10d2747b2113384de3a063,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 340ebc4f454a13849a81e831e4718842,
+      type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: d1cc917f2e0791742b6d1da736d6a463,
       type: 2}
