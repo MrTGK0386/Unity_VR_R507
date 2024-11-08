@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class SquareSlideMovement : MonoBehaviour
+public class SlideMovement : MonoBehaviour
 {
-    public float targetX = 5f; 
+    public float targetX;
     public float slideSpeed = 2f;
 
     private Vector3 startPosition;
