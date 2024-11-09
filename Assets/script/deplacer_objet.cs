@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SlideMovement : MonoBehaviour
+public class SlideMovementancien : MonoBehaviour
 {
     public float targetX;
     public float slideSpeed = 2f;
