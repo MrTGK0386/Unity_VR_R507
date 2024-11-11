@@ -1,39 +1,45 @@
 using UnityEngine;
 
-public class MouvementGlissant : MonoBehaviour
+public class Props : MonoBehaviour
 {
-    public float cibleX;                
-    public float vitesseGlissement = 2f; 
+    public float cibleX;
+    public float vitesseGlissement = 2f;
 
-    private Vector3 positionDepart;     
-    private Vector3 positionCible;      
-    private float tempsEcoule = 0f;     
-    private bool estEnGlissement = false; 
-    private float tempsAttente;       
+    private Vector3 positionDepart;
+    private Vector3 positionCible;
+    private float tempsEcoule = 0f;
+    private bool estEnGlissement = false;
+    private float tempsAttente;
+
+    private bool departposition = true;
 
     private void Start()
     {
-        InitialiserPositions();   
-        DefinirTempsAttenteAleatoire(); 
+        InitialiserPositions();
+        DefinirTempsAttenteAleatoire();
     }
 
     private void Update()
     {
-        if (estEnGlissement) 
+        if (estEnGlissement)
         {
-            GlisserVersCible(); 
+            GlisserVersCible();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            VerifierEtGererClick();
         }
     }
 
     private void InitialiserPositions()
     {
         positionDepart = transform.position;
-        positionCible = new Vector3(cibleX, transform.position.y, transform.position.z); 
+        positionCible = new Vector3(cibleX, transform.position.y, transform.position.z);
     }
 
     private void DefinirTempsAttenteAleatoire()
     {
-
         tempsAttente = Random.Range(1, 4);
         Debug.Log("Temps d'attente aléatoire : " + tempsAttente + " secondes");
         Invoke(nameof(DemarrerGlissement), tempsAttente);
@@ -41,24 +47,49 @@ public class MouvementGlissant : MonoBehaviour
 
     private void DemarrerGlissement()
     {
-        estEnGlissement = true; 
+        estEnGlissement = true;
     }
 
     private void GlisserVersCible()
     {
-        tempsEcoule += Time.deltaTime * vitesseGlissement; 
-        transform.position = Vector3.Lerp(positionDepart, positionCible, tempsEcoule); 
+        tempsEcoule += Time.deltaTime * vitesseGlissement;
+        transform.position = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
 
         if (transform.position.x >= positionCible.x)
         {
-            ArreterGlissement(); 
+            ArreterGlissement();
+            departposition = false;
         }
     }
 
     private void ArreterGlissement()
     {
-        transform.position = positionCible; 
-        estEnGlissement = false; 
-        tempsEcoule = 0f; 
+        transform.position = positionCible;
+        estEnGlissement = false;
+        tempsEcoule = 0f;
+    }
+
+    private void VerifierEtGererClick()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        Debug.Log("verifie le changement");
+
+        if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
+        {
+            Debug.Log("verifie le changement 2");
+
+            if (departposition == false || estEnGlissement == true)
+            {
+                transform.position = positionDepart;
+                estEnGlissement = false;
+                tempsEcoule = 0f;
+                Debug.Log("verifie le changement 3");
+
+            }
+            else
+            {
+            }
+        }
     }
 }
