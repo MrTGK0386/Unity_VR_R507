@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Collections;
 
 public class Props : MonoBehaviour
 {
-    public float cibleX;
+   public float cibleX;
     public float vitesseGlissement = 2f;
 
     private Vector3 positionDepart;
@@ -12,6 +13,9 @@ public class Props : MonoBehaviour
     private float tempsAttente;
 
     private bool departposition = true;
+    private Coroutine defaiteTimer;
+
+    public Score scoreScript;
 
     private void Start()
     {
@@ -30,6 +34,7 @@ public class Props : MonoBehaviour
         {
             VerifierEtGererClick();
         }
+
     }
 
     private void InitialiserPositions()
@@ -49,6 +54,15 @@ public class Props : MonoBehaviour
     {
         estEnGlissement = true;
     }
+    private void defaite()
+    {
+        Score.SubtractPoints(1);
+         if (scoreScript != null)
+            {
+                Score.RefreshScoreDisplay(scoreScript);
+            }
+    }
+
 
     private void GlisserVersCible()
     {
@@ -69,7 +83,7 @@ public class Props : MonoBehaviour
         tempsEcoule = 0f;
     }
 
-    private void VerifierEtGererClick()
+      private void VerifierEtGererClick()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -79,17 +93,50 @@ public class Props : MonoBehaviour
         {
             Debug.Log("verifie le changement 2");
 
-            if (departposition == false || estEnGlissement == true)
+            if (departposition == false)
             {
                 transform.position = positionDepart;
                 estEnGlissement = false;
                 tempsEcoule = 0f;
+                departposition = true;
                 Debug.Log("verifie le changement 3");
+                Score.AddPoints(1);
+                InitialiserPositions();
+                DefinirTempsAttenteAleatoire();
 
+                // Stopper le timer si l'objet est cliqué
+                if (defaiteTimer != null)
+                {
+                    StopCoroutine(defaiteTimer);
+                    defaiteTimer = null;
+                }
             }
             else
             {
+                // Ne rien faire, l'objet n'a pas bougé
+            }
+
+            if (scoreScript != null)
+            {
+                Score.RefreshScoreDisplay(scoreScript);
             }
         }
+
+        // Démarrer le timer si l'objet a bougé
+        if (departposition == false)
+        {
+            defaiteTimer = StartCoroutine(DefaiteTimer());
+        }
     }
+
+    private IEnumerator DefaiteTimer()
+    {
+        yield return new WaitForSeconds(10f);
+        Score.SubtractPoints(1);
+        if (scoreScript != null)
+        {
+            Score.RefreshScoreDisplay(scoreScript);
+        }
+    }
+
 }
