@@ -3,47 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Score : MonoBehaviour
+public class ScoreManager : MonoBehaviour
 {
-    public TMP_Text scoreText;  // Assurez-vous de lier cet élément dans l'inspecteur
-    private static int score = 0; // Score initial de 50
+    public static ScoreManager Instance { get; private set; }
+    public TMP_Text scoreText;
+    private int score = 0;
 
-    void Start()
+    private void Awake()
     {
-        UpdateScoreText(); // Affiche le score de départ
-    }
-
-    // Méthode pour augmenter le score
-    public static void AddPoints(int points)
-    {
-        score += points;
-        Debug.Log("Score augmenté : " + score);
-    }
-
-    // Méthode pour diminuer le score
-    public static void SubtractPoints(int points)
-    {
-        score -= points;
-        Debug.Log("Score diminué : " + score);
-    }
-
-    // Met à jour l'affichage du score
-    public void UpdateScoreText()
-    {
-        if (scoreText != null)
+        if (Instance == null)
         {
-            scoreText.text = "Score : " + score.ToString();
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    // Méthode pour actualiser l'affichage du score depuis l'extérieur
-    public static void RefreshScoreDisplay(Score scoreInstance)
+    void Start()
     {
-        scoreInstance.UpdateScoreText();
+        UpdateScoreText();
     }
 
-    public static int GetScore()
+    public void AddPoints(int points)
+    {
+        score += points;
+        UpdateScoreText();
+        Debug.Log($"Score augmenté : {score}");
+    }
+
+    public void SubtractPoints(int points)
+    {
+        score -= points;
+        UpdateScoreText();
+        Debug.Log($"Score diminué : {score}");
+    }
+
+    private void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = $"Score : {score}";
+        }
+        else
+        {
+            Debug.LogWarning("ScoreText reference is missing!");
+        }
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public void ResetScore()
 {
-    return score;
+    score = 0;
+    UpdateScoreText();
 }
 }
