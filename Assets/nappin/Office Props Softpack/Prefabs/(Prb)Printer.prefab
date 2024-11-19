@@ -44,7 +44,6 @@ GameObject:
   - component: {fileID: 367356258253113226}
   - component: {fileID: 8651308429773026736}
   - component: {fileID: 5964755792812726368}
-  - component: {fileID: 1980075316751307509}
   m_Layer: 0
   m_Name: printer
   m_TagString: Untagged
@@ -142,17 +141,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1018.1687, y: 1636.1608, z: 1673.1638}
   m_Center: {x: 59.377975, y: 820.2233, z: -5.7117615}
---- !u!114 &1980075316751307509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4225951758719550944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fe11df105f01964a848afdb6bc6e287, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetX: 5
-  slideSpeed: 2

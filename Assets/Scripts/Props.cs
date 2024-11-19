@@ -1,28 +1,35 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 public class Props : MonoBehaviour
 {
     public float cibleX;
     public float vitesseGlissement = 2f;
-
+    public bool Glisse = false;
+    public float TempLimite = 10f;
+    
     private Vector3 positionDepart;
     private Vector3 positionCible;
     private float tempsEcoule = 0f;
-    private bool estEnGlissement = false;
-    private float tempsAttente;
     private bool departposition = true;
     private Coroutine defaiteTimer;
-
+    
+    public void DemarrerGlissement()
+    {
+        Glisse = true;
+        GameManager.SupprimerActivable(this.gameObject);
+    }
+    
     private void Start()
     {
+        StopAllCoroutines();
         InitialiserPositions();
-        DefinirTempsAttenteAleatoire();
     }
 
     private void Update()
     {
-        if (estEnGlissement)
+        if (Glisse)
         {
             GlisserVersCible();
         }
@@ -38,18 +45,7 @@ public class Props : MonoBehaviour
         positionDepart = transform.position;
         positionCible = new Vector3(cibleX, transform.position.y, transform.position.z);
     }
-
-    private void DefinirTempsAttenteAleatoire()
-    {
-        tempsAttente = Random.Range(1f, 4f);
-        Debug.Log($"Temps d'attente aléatoire : {tempsAttente} secondes");
-        Invoke(nameof(DemarrerGlissement), tempsAttente);
-    }
-
-    private void DemarrerGlissement()
-    {
-        estEnGlissement = true;
-    }
+    
 
     private void GlisserVersCible()
     {
@@ -70,7 +66,8 @@ public class Props : MonoBehaviour
     private void ArreterGlissement()
     {
         transform.position = positionCible;
-        estEnGlissement = false;
+        Glisse = false;
+        GameManager.AjouterActivable(this.gameObject);
         tempsEcoule = 0f;
     }
 
@@ -84,14 +81,13 @@ public class Props : MonoBehaviour
             if (!departposition)
             {
                 transform.position = positionDepart;
-                estEnGlissement = false;
+                Glisse = false;
                 tempsEcoule = 0f;
                 departposition = true;
                 
                 ScoreManager.Instance.AddPoints(1);
                 
                 InitialiserPositions();
-                DefinirTempsAttenteAleatoire();
 
                 if (defaiteTimer != null)
                 {
@@ -106,12 +102,12 @@ public class Props : MonoBehaviour
     {
         while (!departposition)
         {
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(TempLimite);
             
             if (!departposition)
             {
                 ScoreManager.Instance.SubtractPoints(1);
-                Debug.Log("Point soustrait : objet non remis en place");
+                //Debug.Log("Point soustrait : objet non remis en place");
             }
         }
     }
