@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: f11d8869ac89f48498b0b43fd1c8ae37
+=======
+<<<<<<< Updated upstream
+guid: d215ee0a7570e0f46adbb0ddecf518ef
+=======
+guid: f11d8869ac89f48498b0b43fd1c8ae37
+>>>>>>> Stashed changes
+>>>>>>> deplace_random
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
