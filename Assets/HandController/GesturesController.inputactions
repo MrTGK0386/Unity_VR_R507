@@ -1,0 +1,102 @@
+{
+    "name": "GesturesController",
+    "maps": [
+        {
+            "name": "LeftController",
+            "id": "f47834ad-a54f-437c-ab4d-0d06fe388bc8",
+            "actions": [
+                {
+                    "name": "Grip",
+                    "type": "Value",
+                    "id": "90233b66-6053-4cf9-92df-468284b9f1ef",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Trigger",
+                    "type": "Value",
+                    "id": "b03b0f83-81c5-4a76-921f-21ff881b4da4",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d718261f-657b-463e-a4ac-dcf482916b24",
+                    "path": "<XRController>{LeftHand}/grip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d7e111e-3cf4-456d-a539-962655d7a6e2",
+                    "path": "<XRController>{LeftHand}/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "RightController",
+            "id": "219e8fff-1081-4053-ad8f-c53735372848",
+            "actions": [
+                {
+                    "name": "Grip",
+                    "type": "Value",
+                    "id": "00ae8594-0d61-4ac2-b92b-c31adeb5c49c",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Trigger",
+                    "type": "Value",
+                    "id": "76e0e39e-53df-486a-b18e-85a017703d3f",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "09e73a01-7411-465c-8ae3-fe48a6563a54",
+                    "path": "<XRController>{RightHand}/grip",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "57d1bf3a-09ce-4fa3-a327-56e1b777ccb9",
+                    "path": "<XRController>{RightHand}/trigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
