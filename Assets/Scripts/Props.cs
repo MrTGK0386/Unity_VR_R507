@@ -22,6 +22,7 @@ public class Props : MonoBehaviour
     public void DemarrerGlissement()
     {
         Glisse = true;
+        GlisserVersCible();
         GameManager.SupprimerActivable(this.gameObject);
     }
     
@@ -34,10 +35,6 @@ public class Props : MonoBehaviour
 
     private void Update()
     {
-        if (Glisse)
-        {
-            GlisserVersCible();
-        }
     }
 
     private void InitialiserPositions()
@@ -60,12 +57,19 @@ public class Props : MonoBehaviour
         }
         else
         {
-            tempsEcoule += Time.deltaTime * vitesseGlissement;
-            transform.localPosition = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
+            StartCoroutine(DeplacementLisse());
         }
-
-        if (Vector3.Distance(transform.localPosition, positionCible) < 0.01f)
+        
+        IEnumerator DeplacementLisse()
         {
+            tempsEcoule = 0f;
+            while (Vector3.Distance(transform.localPosition, positionCible) > 0.01f)
+            {
+                tempsEcoule += Time.deltaTime * vitesseGlissement;
+                transform.localPosition = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
+                yield return null;  // Attendre la prochaine frame
+            }
+
             ArreterGlissement();
             departposition = false;
             if (defaiteTimer == null)
