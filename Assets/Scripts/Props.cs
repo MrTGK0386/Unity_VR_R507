@@ -4,12 +4,11 @@ using UnityEngine.Serialization;
 
 public class Props : MonoBehaviour
 {
-    public float cibleX;
     public float vitesseGlissement = 2f;
     public bool Glisse = false;
     
     private Vector3 positionDepart;
-    private Vector3 positionCible;
+    [SerializeField] private Vector3 positionCible;
     private float tempsEcoule = 0f;
     private bool departposition = true;
     private Coroutine defaiteTimer;
@@ -38,17 +37,16 @@ public class Props : MonoBehaviour
 
     private void InitialiserPositions()
     {
-        positionDepart = transform.position;
-        positionCible = new Vector3(cibleX, transform.position.y, transform.position.z);
+        positionDepart = transform.localPosition;
     }
     
 
     private void GlisserVersCible()
     {
         tempsEcoule += Time.deltaTime * vitesseGlissement;
-        transform.position = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
+        transform.localPosition = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
 
-        if (transform.position.x >= positionCible.x)
+        if (Vector3.Distance(transform.localPosition, positionCible) < 0.01f)
         {
             ArreterGlissement();
             departposition = false;
@@ -61,7 +59,7 @@ public class Props : MonoBehaviour
 
     private void ArreterGlissement()
     {
-        transform.position = positionCible;
+        transform.localPosition = positionCible;
         Glisse = false;
         GameManager.AjouterActivable(this.gameObject);
         tempsEcoule = 0f;
@@ -71,7 +69,7 @@ public class Props : MonoBehaviour
     {
         if (!departposition)
         {
-            transform.position = positionDepart;
+            transform.localPosition = positionDepart;
             Glisse = false;
             tempsEcoule = 0f;
             departposition = true;
