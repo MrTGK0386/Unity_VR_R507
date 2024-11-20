@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class HandsControllerManager : MonoBehaviour
 {
@@ -45,5 +46,18 @@ public class HandsControllerManager : MonoBehaviour
     {
         triggerActionReference?.action.Disable();
         gripActionReference?.action.Disable();
+    }
+
+    // SELECT TO LAUNCH PROP SCRIPT
+    public void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        // Récupère le composant Props de l'objet sélectionné
+        Props propsScript = args.interactableObject.transform.GetComponent<Props>();
+        
+        // Si l'objet a bien le script Props, on appelle sa fonction
+        if (propsScript != null)
+        {
+            propsScript.SelectionObject();
+        }
     }
 }

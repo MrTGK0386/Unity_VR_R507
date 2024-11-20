@@ -66,7 +66,7 @@ public class Props : MonoBehaviour
         tempsEcoule = 0f;
     }
 
-    private void SelectionObject()
+    public void SelectionObject()
     {
         if (!departposition)
         {
