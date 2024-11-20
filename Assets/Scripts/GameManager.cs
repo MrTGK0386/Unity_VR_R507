@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.Interaction.Toolkit;
+
 //using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
@@ -93,7 +95,12 @@ public class GameManager : MonoBehaviour
         // Ajouter chaque objet à la liste
         foreach (GameObject obj in objects)
         {
+            if (!obj.GetComponent<XRSimpleInteractable>())
+            {
+                obj.AddComponent<XRSimpleInteractable>();
+            }
             _listeObjects.Add(obj);
+            
         }
         
         // Réactiver le jeu
