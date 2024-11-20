@@ -37,7 +37,7 @@ public class ScoreManager : MonoBehaviour
     {
         score -= points;
         UpdateScoreText();
-        Debug.Log($"Score diminué : {score}");
+        //Debug.Log($"Score diminué : {score}");
     }
 
     private void UpdateScoreText()
