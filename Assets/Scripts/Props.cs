@@ -7,13 +7,13 @@ public class Props : MonoBehaviour
     public float cibleX;
     public float vitesseGlissement = 2f;
     public bool Glisse = false;
-    public float TempLimite = 10f;
     
     private Vector3 positionDepart;
     private Vector3 positionCible;
     private float tempsEcoule = 0f;
     private bool departposition = true;
     private Coroutine defaiteTimer;
+    private float TempLimite;
     
     public void DemarrerGlissement()
     {
@@ -23,6 +23,7 @@ public class Props : MonoBehaviour
     
     private void Start()
     {
+        TempLimite = GameManager.Instance.tempLimiteObjet;
         StopAllCoroutines();
         InitialiserPositions();
     }

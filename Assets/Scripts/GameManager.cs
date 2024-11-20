@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public float GameTime = 6f;        // Durée d'une partie en secondes
     public float DelaiEvenementMinS = 1.5f;
     public float DelaiEvenementMaxS = 5f;
+    public float tempLimiteObjet = 10f;
     
     private float _currentTime;          // Temps restant
     private bool _isGameOver = false;
