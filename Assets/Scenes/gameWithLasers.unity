@@ -759,6 +759,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3216395252738839009, guid: c53fe300edecc524f9f511dc58792d47,
         type: 3}
+      propertyPath: m_TagString
+      value: Activable
+      objectReference: {fileID: 0}
+    - target: {fileID: 3216395252738839009, guid: c53fe300edecc524f9f511dc58792d47,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -2926,7 +2931,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 686853474}
+        m_TargetAssemblyTypeName: HandsControllerManager, Assembly-CSharp
+        m_MethodName: OnSelectEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
@@ -4743,6 +4760,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: (Prb)TrashCan
       objectReference: {fileID: 0}
+    - target: {fileID: 1202981191471370897, guid: 458271fb06e38ef4abfe60d080c61a94,
+        type: 3}
+      propertyPath: m_TagString
+      value: Activable
+      objectReference: {fileID: 0}
     - target: {fileID: 2015934406930253867, guid: 458271fb06e38ef4abfe60d080c61a94,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5541,7 +5563,19 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 176098876}
+        m_TargetAssemblyTypeName: HandsControllerManager, Assembly-CSharp
+        m_MethodName: OnSelectEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
       m_Calls: []
