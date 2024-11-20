@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 
 public class Props : MonoBehaviour
 {
     public float vitesseGlissement = 2f;
     public bool Glisse = false;
+    public GameObject NavMeshTarget; 
     
     private Vector3 positionDepart;
     [SerializeField] private Vector3 positionCible;
@@ -13,6 +16,8 @@ public class Props : MonoBehaviour
     private bool departposition = true;
     private Coroutine defaiteTimer;
     private float TempLimite;
+    private NavMeshAgent agent;
+    
     
     public void DemarrerGlissement()
     {
@@ -38,14 +43,26 @@ public class Props : MonoBehaviour
     private void InitialiserPositions()
     {
         positionDepart = transform.localPosition;
+        if (this.GetComponent<NavMeshAgent>())
+        {
+            agent = this.GetComponent<NavMeshAgent>();
+        }
     }
     
 
     private void GlisserVersCible()
     {
         Debug.Log($"{this.gameObject.name} se déplace");
-        tempsEcoule += Time.deltaTime * vitesseGlissement;
-        transform.localPosition = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
+
+        if (agent != null)
+        {
+            agent.destination = NavMeshTarget.transform.position;
+        }
+        else
+        {
+            tempsEcoule += Time.deltaTime * vitesseGlissement;
+            transform.localPosition = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
+        }
 
         if (Vector3.Distance(transform.localPosition, positionCible) < 0.01f)
         {
