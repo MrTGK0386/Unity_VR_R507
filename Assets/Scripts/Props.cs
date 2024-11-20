@@ -33,11 +33,6 @@ public class Props : MonoBehaviour
         {
             GlisserVersCible();
         }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            VerifierEtGererClick();
-        }
     }
 
     private void InitialiserPositions()
@@ -71,29 +66,23 @@ public class Props : MonoBehaviour
         tempsEcoule = 0f;
     }
 
-    private void VerifierEtGererClick()
+    private void SelectionObject()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
+        if (!departposition)
         {
-            if (!departposition)
-            {
-                transform.position = positionDepart;
-                Glisse = false;
-                tempsEcoule = 0f;
-                departposition = true;
-                
-                ScoreManager.Instance.AddPoints(1);
-                
-                InitialiserPositions();
+            transform.position = positionDepart;
+            Glisse = false;
+            tempsEcoule = 0f;
+            departposition = true;
 
-                if (defaiteTimer != null)
-                {
-                    StopCoroutine(defaiteTimer);
-                    defaiteTimer = null;
-                }
+            ScoreManager.Instance.AddPoints(1);
+
+            InitialiserPositions(); // Modifier pour refaire glisser l'objet à se position initiale
+
+            if (defaiteTimer != null)
+            {
+                StopCoroutine(defaiteTimer);
+                defaiteTimer = null;
             }
         }
     }
