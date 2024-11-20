@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private float _currentTime;          // Temps restant
     private bool _isGameOver = false;
     private static List<GameObject> _listeObjects = new List<GameObject>();
-    
+    private static List<GameObject> _listeLights = new List<GameObject>();    
 
     private void Awake()
     {
@@ -90,33 +90,71 @@ public class GameManager : MonoBehaviour
         
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Activable"); //Récupère tous les objets activable de la scène
 
+        GameObject[] lights = GameObject.FindGameObjectsWithTag("Light");
+
+        
         // Ajouter chaque objet à la liste
         foreach (GameObject obj in objects)
         {
             _listeObjects.Add(obj);
         }
         
+        foreach (GameObject light in lights)
+        {
+            _listeLights.Add(light);
+        }
         // Réactiver le jeu
         _isGameOver = false;
         
         // Lance la méthode qui gère les event de façon récursive
         ActiverEvenement();
+        ActiverEvenementLumiere(); 
+    }
+
+    private static GameObject _ChoisirLumiere(List<GameObject> listeLumieres)
+    {
+        if (listeLumieres.Count > 0)
+        {
+            int randomIndex = Random.Range(0, listeLumieres.Count);
+            return listeLumieres[randomIndex];
+        }
+        else
+        {
+            Debug.LogWarning("La liste des lumières est vide");
+            return null;
+        }
+    }
+
+     public void ActiverEvenementLumiere()
+    {
+       GameObject _light = _ChoisirObjet(_listeLights);
+        if (_light == null)
+        {
+            return;
+        }
+        
+        float _delai = _ChoisirNombre(DelaiEvenementMinS, DelaiEvenementMaxS);
+        
+        //Récupération du script de la prop
+        Projecteur projScript = _light.GetComponent<Projecteur>();
+        //Lancement du glissement avec le délai
+        StartCoroutine(GererAllumerlight(projScript, _delai));
     }
 
     public void ActiverEvenement()
     {
-    GameObject _prop = _ChoisirObjet(_listeObjects);
-    if (_prop == null)
-    {
-        return;
-    }
-    
-    float _delai = _ChoisirNombre(DelaiEvenementMinS, DelaiEvenementMaxS);
-    
-    //Récupération du script de la prop
-    Props propScript = _prop.GetComponent<Props>();
-    //Lancement du glissement avec le délai
-    StartCoroutine(GererDelaiGlissement(propScript, _delai));
+        GameObject _prop = _ChoisirObjet(_listeObjects);
+        if (_prop == null)
+        {
+            return;
+        }
+        
+        float _delai = _ChoisirNombre(DelaiEvenementMinS, DelaiEvenementMaxS);
+        
+        //Récupération du script de la prop
+        Props propScript = _prop.GetComponent<Props>();
+        //Lancement du glissement avec le délai
+        StartCoroutine(GererDelaiGlissement(propScript, _delai));
     
     }
 
@@ -146,6 +184,16 @@ public class GameManager : MonoBehaviour
         } 
     }
     
+
+        private IEnumerator GererAllumerlight(Projecteur projScript , float _delai)
+    {
+        yield return new WaitForSeconds(_delai);
+        projScript.ActiverAllumer();
+        if (!_isGameOver)
+        {
+            ActiverEvenementLumiere();
+        } 
+    }
     private static float _ChoisirNombre(float min, float max)
     {
         return Random.Range(min, max);
