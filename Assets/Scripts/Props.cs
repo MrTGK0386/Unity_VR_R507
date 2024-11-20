@@ -43,6 +43,7 @@ public class Props : MonoBehaviour
 
     private void GlisserVersCible()
     {
+        Debug.Log($"{this.gameObject.name} se déplace");
         tempsEcoule += Time.deltaTime * vitesseGlissement;
         transform.localPosition = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
 
@@ -61,7 +62,6 @@ public class Props : MonoBehaviour
     {
         transform.localPosition = positionCible;
         Glisse = false;
-        GameManager.AjouterActivable(this.gameObject);
         tempsEcoule = 0f;
     }
 
@@ -75,6 +75,7 @@ public class Props : MonoBehaviour
             departposition = true;
 
             ScoreManager.Instance.AddPoints(1);
+            GameManager.AjouterActivable(this.gameObject);
 
             InitialiserPositions(); // Modifier pour refaire glisser l'objet à se position initiale
 

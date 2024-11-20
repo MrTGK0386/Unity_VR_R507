@@ -614,6 +614,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: (Prb)OfficeChair
       objectReference: {fileID: 0}
+    - target: {fileID: 2824801679941595952, guid: 3713613c4ffcd6945900432c53af79b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Activable
+      objectReference: {fileID: 0}
+    - target: {fileID: 2824801679941595952, guid: 3713613c4ffcd6945900432c53af79b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3204423859770501514, guid: 3713613c4ffcd6945900432c53af79b8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -664,10 +674,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4186732765179834127, guid: 3713613c4ffcd6945900432c53af79b8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2824801679941595952, guid: 3713613c4ffcd6945900432c53af79b8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1607663088}
   m_SourcePrefab: {fileID: 100100000, guid: 3713613c4ffcd6945900432c53af79b8, type: 3}
 --- !u!4 &204569232 stripped
 Transform:
@@ -3637,10 +3656,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0a47f2370d15b45996bd1b3d0e9c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cibleX: -13
   vitesseGlissement: 2
   Glisse: 0
-  TempLimite: 10
+  positionCible: {x: 0.039, y: 0.8048138, z: 1.232793}
 --- !u!1 &1087910068
 GameObject:
   m_ObjectHideFlags: 0
@@ -4056,9 +4074,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MessageText: {fileID: 1132720198}
-  GameTime: 60
-  DelaiEvenementMinS: 5
-  DelaiEvenementMaxS: 7
+  GameTime: 100
+  DelaiEvenementMinS: 2
+  DelaiEvenementMaxS: 4
+  tempLimiteObjet: 1000
 --- !u!4 &1210480154
 Transform:
   m_ObjectHideFlags: 0
@@ -4768,7 +4787,7 @@ PrefabInstance:
     - target: {fileID: 2015934406930253867, guid: 458271fb06e38ef4abfe60d080c61a94,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.424
+      value: -2.419412
       objectReference: {fileID: 0}
     - target: {fileID: 2015934406930253867, guid: 458271fb06e38ef4abfe60d080c61a94,
         type: 3}
@@ -4778,7 +4797,7 @@ PrefabInstance:
     - target: {fileID: 2015934406930253867, guid: 458271fb06e38ef4abfe60d080c61a94,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.706
+      value: 3.889637
       objectReference: {fileID: 0}
     - target: {fileID: 2015934406930253867, guid: 458271fb06e38ef4abfe60d080c61a94,
         type: 3}
@@ -4856,10 +4875,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea0a47f2370d15b45996bd1b3d0e9c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cibleX: -11.5
   vitesseGlissement: 2
   Glisse: 0
-  TempLimite: 10
+  positionCible: {x: -1.418, y: 0.49999988, z: 3.042}
 --- !u!65 &1392272909
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5139,6 +5157,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1478184819}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1607663087 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2824801679941595952, guid: 3713613c4ffcd6945900432c53af79b8,
+    type: 3}
+  m_PrefabInstance: {fileID: 204569231}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1607663088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607663087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea0a47f2370d15b45996bd1b3d0e9c31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vitesseGlissement: 2
+  Glisse: 0
+  positionCible: {x: -0.506, y: 0.50000024, z: -0.962}
 --- !u!1001 &1622272537
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5204,6 +5243,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 924301326717782217, guid: aae064ec06860f04787f3ee19de1c0c1,
         type: 3}
+      propertyPath: m_TagString
+      value: Activable
+      objectReference: {fileID: 0}
+    - target: {fileID: 924301326717782217, guid: aae064ec06860f04787f3ee19de1c0c1,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -5221,6 +5265,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2083550928}
+    - targetCorrespondingSourceObject: {fileID: 924301326717782217, guid: aae064ec06860f04787f3ee19de1c0c1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2083550929}
   m_SourcePrefab: {fileID: 100100000, guid: aae064ec06860f04787f3ee19de1c0c1, type: 3}
 --- !u!4 &1622272538 stripped
 Transform:
@@ -6572,6 +6620,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.81, z: 1}
   m_Center: {x: -0.68, y: 0.62, z: 0.13}
+--- !u!114 &2083550929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2083550926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea0a47f2370d15b45996bd1b3d0e9c31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vitesseGlissement: 2
+  Glisse: 0
+  positionCible: {x: 1.314, y: 0.5000001, z: 1.3}
 --- !u!1 &2106723453
 GameObject:
   m_ObjectHideFlags: 0
