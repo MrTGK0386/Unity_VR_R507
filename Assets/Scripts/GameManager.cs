@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         // Attendre 2 secondes avant de réinitialiser
         // Gérer la fin de la game
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Invoke(nameof(ResetGame), 2f);
+        Invoke(nameof(ResetGame), 5f);
     }
 
     private void ResetGame()
@@ -85,11 +85,11 @@ public class GameManager : MonoBehaviour
         // Réinitialiser le temps
         _currentTime = GameTime;
         
-        // Réinitialiser le score via ScoreManager
-        ScoreManager.Instance.ResetScore();
-        
         // Cacher le message
         MessageText.text = "";
+
+        // Réinitialiser le score via ScoreManager
+        ScoreManager.Instance.ResetScore();
         
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Activable"); //Récupère tous les objets activable de la scène
 

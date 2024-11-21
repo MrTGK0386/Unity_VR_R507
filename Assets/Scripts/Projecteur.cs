@@ -35,10 +35,6 @@ public class Projecteur : MonoBehaviour
     }
     
     void Update(){
-        if (Input.GetMouseButtonDown(0))
-        {
-            VerifierEtGererClick();
-        }
     }
     
 
@@ -74,22 +70,6 @@ public class Projecteur : MonoBehaviour
                 StopCoroutine(defaiteTimer);
                 defaiteTimer = null;
             }
-        }
-    }
-    
-    private void VerifierEtGererClick()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
-        {
-            if(maLumiere.enabled){
-                maLumiere.enabled = false;
-                allumer = false;
-                ScoreManager.Instance.AddPoints(1);
-            }
-
         }
     }
 

@@ -51,6 +51,7 @@ public class HandsControllerManager : MonoBehaviour
     // SELECT TO LAUNCH PROP SCRIPT
     public void OnSelectEntered(SelectEnterEventArgs args)
     {
+        Debug.Log("in OnSelectEntered");
         // Récupère le composant Props de l'objet sélectionné
         Props propsScript = args.interactableObject.transform.GetComponent<Props>();
         Projecteur projecteurScript = args.interactableObject.transform.GetComponent<Projecteur>();
@@ -58,6 +59,7 @@ public class HandsControllerManager : MonoBehaviour
         // Si l'objet a bien le script Props, on appelle sa fonction
         if (propsScript != null)
         {
+            Debug.Log("search SelectionObject in propsScript");
             propsScript.SelectionObject();
         }
         else if(projecteurScript!= null)

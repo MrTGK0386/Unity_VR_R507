@@ -11,20 +11,15 @@ public class Props : MonoBehaviour
     public GameObject NavMeshTarget; 
     
     private Vector3 positionDepart;
+    private Quaternion rotationDepart;
+    private Vector3 positionDepartpasagent;
+    private Quaternion rotationDepartpasagent;
     [SerializeField] private Vector3 positionCible;
     private float tempsEcoule = 0f;
     private bool departposition = true;
     private Coroutine defaiteTimer;
     private float TempLimite;
     private NavMeshAgent agent;
-    
-    
-    public void DemarrerGlissement()
-    {
-        Glisse = true;
-        GlisserVersCible();
-        GameManager.SupprimerActivable(this.gameObject);
-    }
     
     private void Start()
     {
@@ -39,11 +34,24 @@ public class Props : MonoBehaviour
 
     private void InitialiserPositions()
     {
-        positionDepart = transform.localPosition;
+        positionDepartpasagent = transform.localPosition;
+        rotationDepartpasagent = transform.rotation;
+
+        positionDepart = transform.position;
+        rotationDepart = transform.rotation;
+        Debug.Log("initiating positions..."  + positionDepart);
+
         if (this.GetComponent<NavMeshAgent>())
         {
             agent = this.GetComponent<NavMeshAgent>();
         }
+    }
+
+    public void DemarrerGlissement()
+    {
+        Glisse = true;
+        GlisserVersCible();
+        GameManager.SupprimerActivable(this.gameObject);
     }
     
 
@@ -88,18 +96,41 @@ public class Props : MonoBehaviour
 
     public void SelectionObject()
     {
-        if (!departposition)
+        Debug.Log(departposition);
+
+        if (agent)
         {
-            transform.localPosition = positionDepart;
+            // Repositionner l'objet
+            Debug.Log("positionDepart =" + positionDepart);
+
+            //agent.destination = worldPositionDepart;
+            agent.Warp(positionDepart);
+            transform.rotation = rotationDepart;
+            ScoreManager.Instance.AddPoints(1);
+            GameManager.AjouterActivable(this.gameObject);
+            
+            // Réinitialiser la destination
+            //agent.ResetPath();
+            if (defaiteTimer != null)
+            {
+                StopCoroutine(defaiteTimer);
+                defaiteTimer = null;
+            }
+        }
+
+        if (!departposition)
+        {        
+            // Fallback si pas de NavMeshAgent
+            Debug.Log("TIRROIR");
+            transform.localPosition = positionDepartpasagent;
+            transform.rotation = rotationDepartpasagent;
+
             Glisse = false;
             tempsEcoule = 0f;
             departposition = true;
-
             ScoreManager.Instance.AddPoints(1);
             GameManager.AjouterActivable(this.gameObject);
-
-            InitialiserPositions(); // Modifier pour refaire glisser l'objet à se position initiale
-
+            
             if (defaiteTimer != null)
             {
                 StopCoroutine(defaiteTimer);

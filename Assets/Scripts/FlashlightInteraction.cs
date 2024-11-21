@@ -1,52 +1,63 @@
 using UnityEngine;
+using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class FlashlightInteraction : MonoBehaviour
+public class FlashlightController : MonoBehaviour 
 {
-    private XRController otherHandController;
-    private XRRayInteractor otherHandRayInteractor;
+    public GameObject whiteLight;
+    private XRBaseInteractable interactable;
+    private bool isOn = false;
+    private bool buttonPressed = false;
 
-    private void Start()
+    void Start()
     {
-        // Récupérez une référence au contrôleur et au XRRayInteractor de l'autre main
-        otherHandController = GetOtherHandController();
-        if (otherHandController != null)
+        // Récupère le XRGrabInteractable attaché à ce GameObject
+        interactable = GetComponent<XRGrabInteractable>();
+        
+        // S'abonne à l'événement de sélection (quand la lampe est attrapée)
+        if (interactable != null)
         {
-            otherHandRayInteractor = otherHandController.GetComponent<XRRayInteractor>();
+            interactable.selectEntered.AddListener(OnGrabbed);
         }
     }
 
-    public void OnSelectEntered(SelectEnterEventArgs args)
+    void OnGrabbed(SelectEnterEventArgs args)
     {
-        // Activez le XRRayInteractor de l'autre main et ajustez sa position
-        if (otherHandRayInteractor != null)
+        // Récupère le contrôleur qui a attrapé l'objet
+        XRController controller = args.interactorObject.transform.GetComponent<XRController>();
+        
+        // Démarre la coroutine d'écoute du bouton pour ce contrôleur spécifique
+        if (controller != null)
         {
-            otherHandRayInteractor.enabled = true;
-            otherHandRayInteractor.transform.position = otherHandController.transform.position;
-            otherHandRayInteractor.transform.rotation = otherHandController.transform.rotation;
+            StartCoroutine(CheckControllerButton(controller));
         }
     }
 
-    public void OnSelectExited(SelectExitEventArgs args)
+    System.Collections.IEnumerator CheckControllerButton(XRController controller)
     {
-        // Désactivez le XRRayInteractor de l'autre main
-        if (otherHandRayInteractor != null)
+        while (interactable.isSelected)
         {
-            otherHandRayInteractor.enabled = false;
-        }
-    }
-
-    private XRController GetOtherHandController()
-    {
-        // Recherchez l'autre contrôleur de main
-        XRController[] controllers = FindObjectsOfType<XRController>();
-        foreach (XRController controller in controllers)
-        {
-            if (controller.gameObject != this.gameObject.transform.parent.gameObject)
+            // Vérifie si le contrôleur qui tient l'objet appuie sur le bouton
+            if (controller.inputDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool buttonValue))
             {
-                return controller;
+                if (buttonValue && !buttonPressed)
+                {
+                    ToggleLight();
+                    buttonPressed = true;
+                }
+                else if (!buttonValue)
+                {
+                    buttonPressed = false;
+                }
             }
+            
+            yield return null;
         }
-        return null;
+    }
+
+    void ToggleLight()
+    {
+        isOn = !isOn;
+        whiteLight.SetActive(isOn);
     }
 }
