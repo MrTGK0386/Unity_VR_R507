@@ -7,8 +7,7 @@ public class Projecteur : MonoBehaviour
     private Light maLumiere;
     
     // Temps minimum et maximum pour le délai aléatoire (en secondes)
-    private float tempsMinimum = 2f;
-    private float tempsMaximum = 10f;
+
     public bool allumer = false;
     public float TempLimite = 10f;
 
