@@ -1,54 +1,75 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 
 public class Props : MonoBehaviour
 {
-    public float cibleX;
     public float vitesseGlissement = 2f;
     public bool Glisse = false;
-    public float TempLimite = 10f;
+    public GameObject NavMeshTarget; 
     
     private Vector3 positionDepart;
-    private Vector3 positionCible;
+    [SerializeField] private Vector3 positionCible;
     private float tempsEcoule = 0f;
     private bool departposition = true;
     private Coroutine defaiteTimer;
+    private float TempLimite;
+    private NavMeshAgent agent;
+    
     
     public void DemarrerGlissement()
     {
         Glisse = true;
+        GlisserVersCible();
         GameManager.SupprimerActivable(this.gameObject);
     }
     
     private void Start()
     {
+        TempLimite = GameManager.Instance.tempLimiteObjet;
         StopAllCoroutines();
         InitialiserPositions();
     }
 
     private void Update()
     {
-        if (Glisse)
-        {
-            GlisserVersCible();
-        }
     }
 
     private void InitialiserPositions()
     {
-        positionDepart = transform.position;
-        positionCible = new Vector3(cibleX, transform.position.y, transform.position.z);
+        positionDepart = transform.localPosition;
+        if (this.GetComponent<NavMeshAgent>())
+        {
+            agent = this.GetComponent<NavMeshAgent>();
+        }
     }
     
 
     private void GlisserVersCible()
     {
-        tempsEcoule += Time.deltaTime * vitesseGlissement;
-        transform.position = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
+        Debug.Log($"{this.gameObject.name} se déplace");
 
-        if (transform.position.x >= positionCible.x)
+        if (agent != null)
         {
+            agent.destination = NavMeshTarget.transform.position;
+        }
+        else
+        {
+            StartCoroutine(DeplacementLisse());
+        }
+        
+        IEnumerator DeplacementLisse()
+        {
+            tempsEcoule = 0f;
+            while (Vector3.Distance(transform.localPosition, positionCible) > 0.01f)
+            {
+                tempsEcoule += Time.deltaTime * vitesseGlissement;
+                transform.localPosition = Vector3.Lerp(positionDepart, positionCible, tempsEcoule);
+                yield return null;  // Attendre la prochaine frame
+            }
+
             ArreterGlissement();
             departposition = false;
             if (defaiteTimer == null)
@@ -60,9 +81,8 @@ public class Props : MonoBehaviour
 
     private void ArreterGlissement()
     {
-        transform.position = positionCible;
+        transform.localPosition = positionCible;
         Glisse = false;
-        GameManager.AjouterActivable(this.gameObject);
         tempsEcoule = 0f;
     }
 
@@ -70,12 +90,13 @@ public class Props : MonoBehaviour
     {
         if (!departposition)
         {
-            transform.position = positionDepart;
+            transform.localPosition = positionDepart;
             Glisse = false;
             tempsEcoule = 0f;
             departposition = true;
 
             ScoreManager.Instance.AddPoints(1);
+            GameManager.AjouterActivable(this.gameObject);
 
             InitialiserPositions(); // Modifier pour refaire glisser l'objet à se position initiale
 

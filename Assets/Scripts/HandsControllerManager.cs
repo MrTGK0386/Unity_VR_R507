@@ -53,11 +53,16 @@ public class HandsControllerManager : MonoBehaviour
     {
         // Récupère le composant Props de l'objet sélectionné
         Props propsScript = args.interactableObject.transform.GetComponent<Props>();
+        Projecteur projecteurScript = args.interactableObject.transform.GetComponent<Projecteur>();
         
         // Si l'objet a bien le script Props, on appelle sa fonction
         if (propsScript != null)
         {
             propsScript.SelectionObject();
+        }
+        else if(projecteurScript!= null)
+        {
+            projecteurScript.SelectionObject();
         }
     }
 }
