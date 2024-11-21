@@ -100,17 +100,19 @@ public class Props : MonoBehaviour
 
         if (agent)
         {
-            // Repositionner l'objet
             Debug.Log("positionDepart =" + positionDepart);
 
-            //agent.destination = worldPositionDepart;
             agent.Warp(positionDepart);
             transform.rotation = rotationDepart;
-            ScoreManager.Instance.AddPoints(1);
+
+            // Dans votre script
+            if (!GameManager._listeObjects.Contains(this.gameObject))
+            {
+                ScoreManager.Instance.AddPoints(1);
+            }
+
             GameManager.AjouterActivable(this.gameObject);
             
-            // Réinitialiser la destination
-            //agent.ResetPath();
             if (defaiteTimer != null)
             {
                 StopCoroutine(defaiteTimer);

@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
     
     private float _currentTime;          // Temps restant
     private bool _isGameOver = false;
-    private static List<GameObject> _listeObjects = new List<GameObject>();
-    private static List<GameObject> _listeLights = new List<GameObject>();    
+    public static List<GameObject> _listeObjects = new List<GameObject>();
+    public static List<GameObject> _listeLights = new List<GameObject>();    
 
     private void Awake()
     {
