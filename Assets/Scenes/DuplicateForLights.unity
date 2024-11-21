@@ -1935,6 +1935,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 299107161}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &329245760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 836603651150617205, guid: aae064ec06860f04787f3ee19de1c0c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1622272537}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &329245764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329245760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d37227100c85e2b4e96e622ec5f10278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkInterval: 1
+  startOn: 0
+--- !u!114 &329245765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329245760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e23ef1e2ada6b4b91f3a0f8b2d8820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emissiveMaterial: {fileID: 2100000, guid: 6d630b77261c6f3439a1df135483317e, type: 2}
 --- !u!1001 &339349311
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8818,6 +8851,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2083550930}
+    - targetCorrespondingSourceObject: {fileID: 836603651150617205, guid: aae064ec06860f04787f3ee19de1c0c1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 329245765}
+    - targetCorrespondingSourceObject: {fileID: 836603651150617205, guid: aae064ec06860f04787f3ee19de1c0c1,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 329245764}
   m_SourcePrefab: {fileID: 100100000, guid: aae064ec06860f04787f3ee19de1c0c1, type: 3}
 --- !u!4 &1622272538 stripped
 Transform:
@@ -8861,6 +8902,7 @@ GameObject:
   - component: {fileID: 1738140753}
   - component: {fileID: 1738140755}
   - component: {fileID: 1738140754}
+  - component: {fileID: 1738140756}
   m_Layer: 0
   m_Name: FanLight
   m_TagString: Untagged
@@ -8968,6 +9010,19 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1738140756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738140752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e23ef1e2ada6b4b91f3a0f8b2d8820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emissiveMaterial: {fileID: 2100000, guid: 1cc45a54efc823346848767db9069abe, type: 2}
 --- !u!1 &1779568725
 GameObject:
   m_ObjectHideFlags: 0
