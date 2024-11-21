@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
 
      public void ActiverEvenementLumiere()
     {
-       GameObject _light = _ChoisirObjet(_listeLights);
+       GameObject _light = _ChoisirLumiere(_listeLights);
         if (_light == null)
         {
             return;
@@ -194,14 +194,14 @@ public class GameManager : MonoBehaviour
     
 
         private IEnumerator GererAllumerlight(Projecteur projScript , float _delai)
-    {
-        yield return new WaitForSeconds(_delai);
-        projScript.ActiverAllumer();
-        if (!_isGameOver)
         {
-            ActiverEvenementLumiere();
-        } 
-    }
+            yield return new WaitForSeconds(_delai);
+            projScript.ActiverAllumer();
+            if (!_isGameOver)
+            {
+                ActiverEvenementLumiere();
+            }
+        }
     private static float _ChoisirNombre(float min, float max)
     {
         return Random.Range(min, max);
@@ -215,5 +215,15 @@ public class GameManager : MonoBehaviour
     public static void SupprimerActivable(GameObject prop) //Supprime un objet de la liste
     {
         _listeObjects.Remove(prop);
+    }
+
+    public static void AjouterLight(GameObject prop)
+    {
+        _listeLights.Add(prop);
+    }
+
+    public static void SupprimerLight(GameObject prop)
+    {
+        _listeLights.Remove(prop);
     }
 }
